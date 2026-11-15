@@ -7,22 +7,25 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed;
     public SpriteRenderer spriteRenderer;
     private float speedX = 0f;
-        private float speedY = 0f;
-        public Rigidbody2D rb;
-        // Start is called once before the first execution of Update after the
-       // MonoBehaviour is created
-void Start()
-        {
+    private float speedY = 0f;
+    public Rigidbody2D rb;
+    // Start is called once before the first execution of Update after the
+    // MonoBehaviour is created
+    void Start()
+    {
         animator = GetComponent<Animator>();
     }
-        // Update is called once per frame
-        void Update()
-        {
-        animator.SetBool("walk", speedX != 0 || speedY != 0);
+    // Update is called once per frame
+    void Update()
+    {
         Movement();
-        }
-        void Movement()
-        {
+
+        animator.SetBool("walk", speedX != 0);
+        animator.SetBool("movingUp", speedY > 0);
+        animator.SetBool("movingDown", speedY < 0);
+    }
+    void Movement()
+    {
         if (speedX > 0)
         {
             spriteRenderer.flipX = false;
@@ -33,17 +36,17 @@ void Start()
         }
         // Horizontal Movement
         if (Keyboard.current.aKey.isPressed)
-            {
-                speedX = -moveSpeed;
-            }
-            else if (Keyboard.current.dKey.isPressed)
-            {
-                speedX = moveSpeed;
-            }
-            else
-            {
-                speedX = 0;
-            }
+        {
+            speedX = -moveSpeed;
+        }
+        else if (Keyboard.current.dKey.isPressed)
+        {
+            speedX = moveSpeed;
+        }
+        else
+        {
+            speedX = 0;
+        }
         // Vertical Movement
         if (Keyboard.current.aKey.isPressed)
         {
@@ -60,17 +63,17 @@ void Start()
             speedX = 0;
         }
         if (Keyboard.current.wKey.isPressed)
-            {
-                speedY = moveSpeed;
-            }
-            else if (Keyboard.current.sKey.isPressed)
-            {
-                speedY = -moveSpeed;
-            }
-            else
-            {
-                speedY = 0;
-            }
-            rb.linearVelocity = new Vector2(speedX, speedY);
+        {
+            speedY = moveSpeed;
         }
+        else if (Keyboard.current.sKey.isPressed)
+        {
+            speedY = -moveSpeed;
+        }
+        else
+        {
+            speedY = 0;
+        }
+        rb.linearVelocity = new Vector2(speedX, speedY);
     }
+}

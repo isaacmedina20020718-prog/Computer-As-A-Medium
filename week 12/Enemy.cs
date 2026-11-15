@@ -6,19 +6,19 @@ public class Enemy : MonoBehaviour
     private Animator animator;
     public int enemyHealth = 50;
     // Start is called once before the first execution of Update after the
-   // MonoBehaviour is created
-void Start()
+    // MonoBehaviour is created
+    void Start()
     {
         animator = GetComponent<Animator>();
     }
     // Update is called once per frame
     void Update()
     {
-      
-        
-    
+
+
+
     }
-   
+
     void Death()
     {
         if (enemyHealth <= 0 && !isDead)
@@ -45,7 +45,7 @@ void Start()
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Sword") && !isDead)
+        if ((other.CompareTag("Sword") || other.CompareTag("Bullet")) && !isDead)
         {
             enemyHealth -= 10;
 
